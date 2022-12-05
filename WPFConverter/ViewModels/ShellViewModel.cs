@@ -9,7 +9,7 @@ namespace WPFConverter.ViewModels
 {
     public class ShellViewModel:Screen
     {
-		private string _inputVal="lol zmieniłem wartość";
+		private string _inputVal="";
 
 		public string InputVal
 		{
