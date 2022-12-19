@@ -21,24 +21,18 @@
 
 
             <TextBox x:Name="Input" Text="{Binding Path=InputVal, Mode=OneWay}" Grid.Row="0" Grid.Column="0" Width="240" Height="30"/>
-            <ComboBox x:Name="OptionsFrom" Grid.Row="1" Grid.Column="0" Width="200" Height="30">
-                <ComboBoxItem Content="Dec"/>
-                <ComboBoxItem Content="Bin"/>
-                <ComboBoxItem Content="Oct"/>
-                <ComboBoxItem Content="Hex"/>
-                <ComboBoxItem Content="Ascii"/>
-            </ComboBox>
+            <ComboBox x:Name="SystemsFrom" Grid.Row="1" Grid.Column="0" Width="200" Height="30"
+                      SelectedItem="{Binding Path=SelectedNumberSystem,Mode=OneWayToSource}"
+                      DisplayMemberPath="Name"/>
 
             <Button x:Name="Submit" Grid.Row="1" Grid.Column="1" Content="CONVERT" Margin="30"/>
 
             <TextBox x:Name="Output" Text="{Binding Path=OutputVal, Mode=OneWay}" Grid.Row="0" Grid.Column="2" Width="240" Height="30" IsEnabled="False" />
-            <ComboBox x:Name="OptionsTo" Grid.Row="1" Grid.Column="2" Width="200" Height="30">
-                <ComboBoxItem Content="Dec"/>
-                <ComboBoxItem Content="Bin"/>
-                <ComboBoxItem Content="Oct"/>
-                <ComboBoxItem Content="Hex"/>
-                <ComboBoxItem Content="Ascii"/>
-            </ComboBox>
+            <ComboBox x:Name="SystemsTo" Grid.Row="1" Grid.Column="2" Width="200" Height="30"
+                      SelectedItem="{Binding Path=SelectedNumberSystem,Mode=OneWayToSource}"
+                      DisplayMemberPath="Name"/>
+            
+
 
         </Grid>
 

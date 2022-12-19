@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using WPFConverter.Models;
 using WPFConverter.ViewModels;
 
 namespace WPFConverter
@@ -18,6 +19,7 @@ namespace WPFConverter
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
             DisplayRootViewForAsync<ShellViewModel>();
+            
         }
     }
 }
