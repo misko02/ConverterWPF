@@ -23,5 +23,6 @@ namespace WPFConverter.Views
         {
             InitializeComponent();
         }
+
     }
 }

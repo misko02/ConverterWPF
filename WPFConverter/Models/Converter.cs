@@ -17,5 +17,7 @@ namespace WPFConverter.Models
         string _inputvalue { get; set; }
         string _outputvalue { get; set; }
 
+
+
     }
 }
