@@ -22,18 +22,24 @@ namespace WPFConverter.ViewModels
             Systems.Add(new NumberSystemModel{Name="Bin", Base=2});
             Systems.Add(new NumberSystemModel{Name="Oct", Base=8});						//Demo Data
             Systems.Add(new NumberSystemModel{Name="Hex", Base=16});
-            Systems.Add(new NumberSystemModel{Name="ASCII", Base=0});
+            Systems.Add(new NumberSystemModel{Name="ASCII", Base=1});
         }
 
 		public string InputVal
 		{
 			get { return _inputVal; }
-			set { _inputVal = value; }
+			set { 
+				_inputVal = value;
+				NotifyOfPropertyChange(() => InputVal);
+			}
 		}
 		public string OutputVal
 		{
 			get { return _outputVal; }
-			set { _outputVal = value; }
+			set { 
+				_outputVal = value;
+				NotifyOfPropertyChange(() => OutputVal);
+			}
 		}
 		public BindableCollection<NumberSystemModel> Systems
 		{
@@ -41,17 +47,6 @@ namespace WPFConverter.ViewModels
 			set { _systems = value; }
 		}
 
-		public BindableCollection<NumberSystemModel> SystemsFrom				//literally just copy of Systems, hope it can be done better way
-		{
-			get { return _systems; }
-			set { _systems = value; }
-		}
-
-        public BindableCollection<NumberSystemModel> SystemsTo
-        {
-            get { return _systems; }
-            set { _systems = value; }
-        }
         public NumberSystemModel SelectedNumberSystemFrom
 		{
 			get { return _selectedNumberSystemFrom; }
@@ -62,13 +57,25 @@ namespace WPFConverter.ViewModels
 		}
         public NumberSystemModel SelectedNumberSystemTo
         {
-            get { return _selectedNumberSystemFrom; }
+            get { return _selectedNumberSystemTo; }
             set
             {
                 _selectedNumberSystemTo = value;
                 NotifyOfPropertyChange(() => SelectedNumberSystemTo);
             }
         }
+
+		//Events???
+		
+
+		public void Submit()
+		{
+			if (SelectedNumberSystemTo != null && SelectedNumberSystemFrom != null && !String.IsNullOrEmpty(InputVal))
+			{
+				Converter converter = new Converter(InputVal, SelectedNumberSystemFrom.Base, SelectedNumberSystemTo.Base);
+				OutputVal = converter.Convertion();
+			}
+		}
 
     }
 
