@@ -20,20 +20,22 @@
             </Grid.ColumnDefinitions>
 
 
-            <TextBox x:Name="Input" Text="{Binding Path=InputVal, Mode=OneWay}" Grid.Row="0" Grid.Column="0" Width="240" Height="30"/>
+            <TextBox x:Name="Input" Text="{Binding Path=InputVal, Mode=TwoWay}" Grid.Row="0" Grid.Column="0" Width="240" Height="30"/>
             <ComboBox x:Name="SystemsFrom" Grid.Row="1" Grid.Column="0" Width="200" Height="30"
-                      SelectedItem="{Binding Path=SelectedNumberSystem,Mode=OneWayToSource}"
+                      SelectedItem="{Binding Path=SelectedNumberSystemFrom,Mode=OneWayToSource}"
+                      ItemsSource="{Binding Systems}"
                       DisplayMemberPath="Name"/>
 
             <Button x:Name="Submit" Grid.Row="1" Grid.Column="1" Content="CONVERT" Margin="30"/>
 
-            <TextBox x:Name="Output" Text="{Binding Path=OutputVal, Mode=OneWay}" Grid.Row="0" Grid.Column="2" Width="240" Height="30" IsEnabled="False" />
+            <TextBox x:Name="Output" Text="{Binding Path=OutputVal, Mode=OneWay}" Grid.Row="0" Grid.Column="2" Width="240" Height="30" IsReadOnly="True" />
             <ComboBox x:Name="SystemsTo" Grid.Row="1" Grid.Column="2" Width="200" Height="30"
-                      SelectedItem="{Binding Path=SelectedNumberSystem,Mode=OneWayToSource}"
+                      SelectedItem="{Binding Path=SelectedNumberSystemTo,Mode=OneWayToSource}"
+                      ItemsSource="{Binding Systems}"
                       DisplayMemberPath="Name"/>
             
 
-
+            
         </Grid>
 
     </Border>
