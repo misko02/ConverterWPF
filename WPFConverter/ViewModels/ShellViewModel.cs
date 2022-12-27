@@ -12,7 +12,7 @@ namespace WPFConverter.ViewModels
     {
 		private string _inputVal="";
 		private string _outputVal="0";
-		private BindableCollection<NumberSystemModel> _systems = new BindableCollection<NumberSystemModel>();
+		private BindableCollection<NumberSystemModel> _systems = new();
 		private NumberSystemModel _selectedNumberSystemFrom;
 		private NumberSystemModel _selectedNumberSystemTo;
 
@@ -46,7 +46,6 @@ namespace WPFConverter.ViewModels
 			get { return _systems; }
 			set { _systems = value; }
 		}
-
         public NumberSystemModel SelectedNumberSystemFrom
 		{
 			get { return _selectedNumberSystemFrom; }
@@ -70,9 +69,9 @@ namespace WPFConverter.ViewModels
 
 		public void Submit()
 		{
-			if (SelectedNumberSystemTo != null && SelectedNumberSystemFrom != null && !String.IsNullOrEmpty(InputVal))
+			if (SelectedNumberSystemTo != null && SelectedNumberSystemFrom != null && !string.IsNullOrEmpty(InputVal))
 			{
-				Converter converter = new Converter(InputVal, SelectedNumberSystemFrom.Base, SelectedNumberSystemTo.Base);
+				var converter = new Converter(InputVal, SelectedNumberSystemFrom.Base, SelectedNumberSystemTo.Base);
 				OutputVal = converter.Convertion();
 			}
 		}
