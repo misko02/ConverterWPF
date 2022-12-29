@@ -94,22 +94,36 @@ namespace WPFConverter.Models
 		}
 		private string NumericalBasedConvertion()
 		{
-			var result = 0d;
-			for(int i=_inputVal.Length-1; i >= 0; i--)
+			if (_outputBase == 1)
 			{
-				int digit;
-				if (Convert.ToInt32(_inputVal[i]) == 48)
+				string resultASCII = "";
+				var numbers = _inputVal.Split(" ");
+				foreach (var number in numbers)
 				{
-					digit = 0;								
+					_inputVal = number;
+					resultASCII += DecConvertion();
 				}
-				else
-				{
-					digit = Convert.ToInt32(_inputVal[i]) - 48;
-				}
-				result += digit*Math.Pow(_inputBase,_inputVal.Length-1-i);//znowu interpretuje '0' jako int 98 a nie 0 -_-
+				return resultASCII;
 			}
-			_inputVal = Convert.ToString(result);
-			return DecConvertion();
+			else
+			{
+				var result = 0d;
+				for (int i = _inputVal.Length - 1; i >= 0; i--)
+				{
+					int digit;
+					if (Convert.ToInt32(_inputVal[i]) == 48)
+					{
+						digit = 0;
+					}
+					else
+					{
+						digit = Convert.ToInt32(_inputVal[i]) - 48;
+					}
+					result += digit * Math.Pow(_inputBase, _inputVal.Length - 1 - i);//znowu interpretuje '0' jako int 98 a nie 0 -_-
+				}
+				_inputVal = Convert.ToString(result);
+				return DecConvertion();
+			}
 		}
 		private string DecConvertion() 
 		{
