@@ -1,18 +1,4 @@
-﻿using Caliburn.Micro;
-using System;
-using System.CodeDom;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics.Contracts;
-using System.Globalization;
-using System.Linq;
-using System.Printing;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-
-namespace WPFConverter.Models
+﻿namespace WPFConverter.Models
 {
     internal class Converter
     {
@@ -90,7 +76,7 @@ namespace WPFConverter.Models
 				numbers.Add($"{DecConvertion()} ");
 			}
 
-			return string.Concat(numbers);
+			return string.Concat(numbers).Trim();
 		}
 		private string NumericalBasedConvertion()
 		{
@@ -98,9 +84,14 @@ namespace WPFConverter.Models
 			{
 				string resultASCII = "";
 				var numbers = _inputVal.Split(" ");
+				var numberAsDec="";
 				foreach (var number in numbers)
 				{
 					_inputVal = number;
+					_outputBase = 10;
+					numberAsDec = NumericalBasedConvertion();			//???
+					_inputVal= numberAsDec;
+					_outputBase = 1;
 					resultASCII += DecConvertion();
 				}
 				return resultASCII;
@@ -128,9 +119,10 @@ namespace WPFConverter.Models
 		private string DecConvertion() 
 		{
 			string result = "";
+			
 			if (_outputBase == 1)			//converting to ASCII
 			{
-				var words = _inputVal.Split(' ');
+				var words = _inputVal.Trim().Split(' ');
 				foreach (var word in words)
 				{
 					result += (char)(Convert.ToInt32(word));
@@ -150,7 +142,7 @@ namespace WPFConverter.Models
 					convertedDigit = (value % _outputBase);
 					if (convertedDigit >= 10)
 					{
-						result += (char)(54 + convertedDigit);
+						result += (char)(55 + convertedDigit);
 					}
 					else
 					{
