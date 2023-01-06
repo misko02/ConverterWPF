@@ -1,18 +1,4 @@
-﻿using Caliburn.Micro;
-using System;
-using System.CodeDom;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics.Contracts;
-using System.Globalization;
-using System.Linq;
-using System.Printing;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-
-namespace WPFConverter.Models
+﻿namespace WPFConverter.Models
 {
     internal class Converter
     {
@@ -90,33 +76,53 @@ namespace WPFConverter.Models
 				numbers.Add($"{DecConvertion()} ");
 			}
 
-			return string.Concat(numbers);
+			return string.Concat(numbers).Trim();
 		}
 		private string NumericalBasedConvertion()
 		{
-			var result = 0d;
-			for(int i=_inputVal.Length-1; i >= 0; i--)
+			if (_outputBase == 1)
 			{
-				int digit;
-				if (Convert.ToInt32(_inputVal[i]) == 48)
+				string resultASCII = "";
+				var numbers = _inputVal.Split(" ");
+				var numberAsDec="";
+				foreach (var number in numbers)
 				{
-					digit = 0;								
+					_inputVal = number;
+					_outputBase = 10;
+					numberAsDec = NumericalBasedConvertion();			//???
+					_inputVal= numberAsDec;
+					_outputBase = 1;
+					resultASCII += DecConvertion();
 				}
-				else
-				{
-					digit = Convert.ToInt32(_inputVal[i]) - 48;
-				}
-				result += digit*Math.Pow(_inputBase,_inputVal.Length-1-i);//znowu interpretuje '0' jako int 98 a nie 0 -_-
+				return resultASCII;
 			}
-			_inputVal = Convert.ToString(result);
-			return DecConvertion();
+			else
+			{
+				var result = 0d;
+				for (int i = _inputVal.Length - 1; i >= 0; i--)
+				{
+					int digit;
+					if (Convert.ToInt32(_inputVal[i]) == 48)
+					{
+						digit = 0;
+					}
+					else
+					{
+						digit = Convert.ToInt32(_inputVal[i]) - 48;
+					}
+					result += digit * Math.Pow(_inputBase, _inputVal.Length - 1 - i);//znowu interpretuje '0' jako int 98 a nie 0 -_-
+				}
+				_inputVal = Convert.ToString(result);
+				return DecConvertion();
+			}
 		}
 		private string DecConvertion() 
 		{
 			string result = "";
+			
 			if (_outputBase == 1)			//converting to ASCII
 			{
-				var words = _inputVal.Split(' ');
+				var words = _inputVal.Trim().Split(' ');
 				foreach (var word in words)
 				{
 					result += (char)(Convert.ToInt32(word));
@@ -136,7 +142,7 @@ namespace WPFConverter.Models
 					convertedDigit = (value % _outputBase);
 					if (convertedDigit >= 10)
 					{
-						result += (char)(54 + convertedDigit);
+						result += (char)(55 + convertedDigit);
 					}
 					else
 					{
