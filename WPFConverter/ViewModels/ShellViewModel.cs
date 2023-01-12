@@ -7,8 +7,8 @@ namespace WPFConverter.ViewModels
 		private string _inputVal="";
 		private string _outputVal="0";
 		private BindableCollection<NumberSystemModel> _systems = new();
-		private NumberSystemModel _selectedNumberSystemFrom;
-		private NumberSystemModel _selectedNumberSystemTo;
+		private NumberSystemModel? _selectedNumberSystemFrom;
+		private NumberSystemModel? _selectedNumberSystemTo;
 
 		public ShellViewModel()
 		{

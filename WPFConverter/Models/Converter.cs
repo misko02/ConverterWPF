@@ -1,6 +1,6 @@
 ﻿namespace WPFConverter.Models
 {
-    internal class Converter
+    public class Converter
     {
 		private string _inputVal;
 		private int _inputBase;
@@ -101,16 +101,11 @@
 				var result = 0d;
 				for (int i = _inputVal.Length - 1; i >= 0; i--)
 				{
-					int digit;
-					if (Convert.ToInt32(_inputVal[i]) == 48)
-					{
-						digit = 0;
-					}
-					else
-					{
-						digit = Convert.ToInt32(_inputVal[i]) - 48;
-					}
-					result += digit * Math.Pow(_inputBase, _inputVal.Length - 1 - i);//znowu interpretuje '0' jako int 98 a nie 0 -_-
+					
+					
+					int digit = Convert.ToInt32(Convert.ToString(_inputVal[i]));
+					
+					result += digit * Math.Pow(_inputBase, _inputVal.Length - 1 - i);
 				}
 				_inputVal = Convert.ToString(result);
 				return DecConvertion();
