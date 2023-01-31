@@ -45,7 +45,7 @@
 		}
 
 		/// <summary>
-		/// Function which takes input value and base, also the output base, and convert input from given input base to it's version in given ouput base
+		/// Function which takes input value, input base and output base, then convert its input to it's version in given ouput base
 		/// </summary>
 		/// <returns>string format of converted by a specified base system input</returns>
 
@@ -101,9 +101,9 @@
 				var result = 0d;
 				for (int i = _inputVal.Length - 1; i >= 0; i--)
 				{
-					
-					
-					int digit = Convert.ToInt32(Convert.ToString(_inputVal[i]));
+
+					int digit;
+					int.TryParse(Convert.ToString(_inputVal[i]),out digit);
 					
 					result += digit * Math.Pow(_inputBase, _inputVal.Length - 1 - i);
 				}

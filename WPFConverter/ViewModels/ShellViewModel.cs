@@ -1,4 +1,5 @@
-﻿using WPFConverter.Models;
+﻿using System.ComponentModel;
+using WPFConverter.Models;
 
 namespace WPFConverter.ViewModels
 {
@@ -42,7 +43,14 @@ namespace WPFConverter.ViewModels
 		}
         public NumberSystemModel SelectedNumberSystemFrom
 		{
-			get { return _selectedNumberSystemFrom; }
+			get {
+                 if (_selectedNumberSystemFrom is null)
+                 {
+                    _selectedNumberSystemFrom = new NumberSystemModel { Name = "UNKNOWN", Base = 0 };
+                 }
+                 return _selectedNumberSystemFrom;
+                
+            }
 			set { 
 				_selectedNumberSystemFrom = value;
 				NotifyOfPropertyChange(()=>SelectedNumberSystemFrom);
@@ -50,7 +58,13 @@ namespace WPFConverter.ViewModels
 		}
         public NumberSystemModel SelectedNumberSystemTo
         {
-            get { return _selectedNumberSystemTo; }
+            get {
+				if(_selectedNumberSystemTo is null)
+				{
+					_selectedNumberSystemTo= new NumberSystemModel { Name = "UNKNOWN", Base = 0 };
+				}
+				return _selectedNumberSystemTo; 
+			}
             set
             {
                 _selectedNumberSystemTo = value;
@@ -58,15 +72,30 @@ namespace WPFConverter.ViewModels
             }
         }
 
-		//Events???
-		
+        //Events???
 
-		public void Submit()
+		public void EnterPressedDown(KeyEventArgs e)
 		{
-			if (SelectedNumberSystemTo != null && SelectedNumberSystemFrom != null && !string.IsNullOrEmpty(InputVal))
+			if(e.Key== Key.Enter)
 			{
-				var converter = new Converter(InputVal, SelectedNumberSystemFrom.Base, SelectedNumberSystemTo.Base);
-				OutputVal = converter.Convertion();
+				
+                Submit();
+			}
+		}
+
+        public void Submit()
+		{
+			try
+			{
+				if (SelectedNumberSystemTo != null && SelectedNumberSystemFrom != null && !string.IsNullOrEmpty(InputVal))
+				{
+					var converter = new Converter(InputVal, SelectedNumberSystemFrom.Base, SelectedNumberSystemTo.Base);
+					OutputVal = converter.Convertion();
+				}
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show($"ERROR OCCURED: {ex.Message}","ERROR",MessageBoxButton.OK,MessageBoxImage.Warning);
 			}
 		}
 
