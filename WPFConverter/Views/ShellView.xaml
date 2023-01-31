@@ -3,11 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WPFConverter.Views" xmlns:viewmodels="clr-namespace:WPFConverter.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:ShellViewModel}"
+        xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+        xmlns:local="clr-namespace:WPFConverter.Views"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:viewmodels="clr-namespace:WPFConverter.ViewModels"
+        d:DataContext="{d:DesignInstance Type=viewmodels:ShellViewModel}"
         mc:Ignorable="d" 
-        Title="Converter" Height="450" Width="800">
+        Title="Converter" Height="450" Width="800"
+        cal:Message.Attach="[Event KeyDown]=[Action EnterPressedDown($eventArgs)]">
     <Border Background="LightGray" BorderBrush="Black" BorderThickness="1"  CornerRadius="0"  Padding="30">
         <Grid>
+            
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition/>
@@ -20,7 +26,11 @@
             </Grid.ColumnDefinitions>
 
 
-            <TextBox x:Name="Input" Text="{Binding Path=InputVal, Mode=TwoWay}" Grid.Row="0" Grid.Column="0" Width="240" Height="30"/>
+            <TextBox x:Name="Input" Text="{Binding Path=InputVal, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                     cal:Message.Attach="[Event KeyDown]=[Action EnterPressedDown($eventArgs)]"
+                     Grid.Row="0" Grid.Column="0" 
+                     Width="240" Height="30"/>
+
             <ComboBox x:Name="SystemsFrom" Grid.Row="1" Grid.Column="0" Width="200" Height="30"
                       SelectedItem="{Binding Path=SelectedNumberSystemFrom,Mode=OneWayToSource}"
                       ItemsSource="{Binding Systems}"
