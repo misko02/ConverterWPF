@@ -1,5 +1,4 @@
-﻿using WPFConverter.Models;
-using WPFConverter.ViewModels;
+﻿using WPFConverter.ViewModels;
 
 namespace WPFConverter
 {
@@ -9,10 +8,10 @@ namespace WPFConverter
         {
             Initialize();
         }
+
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
             DisplayRootViewForAsync<ShellViewModel>();
-            
         }
     }
 }
