@@ -4,4 +4,5 @@ public class NumberSystemModel
 {
     public string? Name { get; set; }
     public int Base { get; set; }
+    public Regex? Pattern { get; set; }
 }

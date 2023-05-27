@@ -80,8 +80,16 @@ public class Converter
             var result = 0d;
             for (int i = InputVal.Length - 1; i >= 0; i--)
             {
+                char currentCharacter = InputVal[i];
                 int digit;
-                int.TryParse(Convert.ToString(InputVal[i]), out digit);
+                if (Char.IsLetter(currentCharacter))
+                {
+                    digit = ((int)currentCharacter) - 55;
+                }
+                else
+                {
+                    int.TryParse(Convert.ToString(currentCharacter), out digit);
+                }
                 result += digit * Math.Pow(InputBase, InputVal.Length - 1 - i);
             }
             InputVal = Convert.ToString(result);
@@ -107,8 +115,8 @@ public class Converter
         }
         else
         {
-            int value = Convert.ToInt32(InputVal);
-            int convertedDigit = 0;
+            var value = Convert.ToInt64(InputVal);
+            var convertedDigit = 0L;
             while (value > 0)
             {
                 convertedDigit = (value % OutputBase);
